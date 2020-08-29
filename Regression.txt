@@ -1,0 +1,166 @@
+References
+
+1
+Breiman, “Random Forests”, Machine Learning, 45(1), 5-32, 2001.
+
+Examples
+
+>>>
+>>> from sklearn.ensemble import RandomForestClassifier
+>>> from sklearn.datasets import make_classification
+>>> X, y = make_classification(n_samples=1000, n_features=4,
+...                            n_informative=2, n_redundant=0,
+...                            random_state=0, shuffle=False)
+>>> clf = RandomForestClassifier(max_depth=2, random_state=0)
+>>> clf.fit(X, y)
+RandomForestClassifier(...)
+>>> print(clf.predict([[0, 0, 0, 0]]))
+[1]
+Methods
+
+apply(X)
+
+Apply trees in the forest to X, return leaf indices.
+
+decision_path(X)
+
+Return the decision path in the forest.
+
+fit(X, y[, sample_weight])
+
+Build a forest of trees from the training set (X, y).
+
+get_params([deep])
+
+Get parameters for this estimator.
+
+predict(X)
+
+Predict class for X.
+
+predict_log_proba(X)
+
+Predict class log-probabilities for X.
+
+predict_proba(X)
+
+Predict class probabilities for X.
+
+score(X, y[, sample_weight])
+
+Return the mean accuracy on the given test data and labels.
+
+set_params(**params)
+
+Set the parameters of this estimator.
+
+__init__(n_estimators=100, *, criterion='gini', max_depth=None, min_samples_split=2, min_samples_leaf=1, min_weight_fraction_leaf=0.0, max_features='auto', max_leaf_nodes=None, min_impurity_decrease=0.0, min_impurity_split=None, bootstrap=True, oob_score=False, n_jobs=None, random_state=None, verbose=0, warm_start=False, class_weight=None, ccp_alpha=0.0, max_samples=None)[source]
+Initialize self. See help(type(self)) for accurate signature.
+
+apply(X)[source]
+Apply trees in the forest to X, return leaf indices.
+
+Parameters
+X{array-like, sparse matrix} of shape (n_samples, n_features)
+The input samples. Internally, its dtype will be converted to dtype=np.float32. If a sparse matrix is provided, it will be converted into a sparse csr_matrix.
+
+Returns
+X_leavesndarray of shape (n_samples, n_estimators)
+For each datapoint x in X and for each tree in the forest, return the index of the leaf x ends up in.
+
+decision_path(X)[source]
+Return the decision path in the forest.
+
+New in version 0.18.
+
+Parameters
+X{array-like, sparse matrix} of shape (n_samples, n_features)
+The input samples. Internally, its dtype will be converted to dtype=np.float32. If a sparse matrix is provided, it will be converted into a sparse csr_matrix.
+
+Returns
+indicatorsparse matrix of shape (n_samples, n_nodes)
+Return a node indicator matrix where non zero elements indicates that the samples goes through the nodes. The matrix is of CSR format.
+
+n_nodes_ptrndarray of shape (n_estimators + 1,)
+The columns from indicator[n_nodes_ptr[i]:n_nodes_ptr[i+1]] gives the indicator value for the i-th estimator.
+
+property feature_importances_
+The impurity-based feature importances.
+
+The higher, the more important the feature. The importance of a feature is computed as the (normalized) total reduction of the criterion brought by that feature. It is also known as the Gini importance.
+
+Warning: impurity-based feature importances can be misleading for high cardinality features (many unique values). See sklearn.inspection.permutation_importance as an alternative.
+
+Returns
+feature_importances_ndarray of shape (n_features,)
+The values of this array sum to 1, unless all trees are single node trees consisting of only the root node, in which case it will be an array of zeros.
+
+fit(X, y, sample_weight=None)[source]
+Build a forest of trees from the training set (X, y).
+
+Parameters
+X{array-like, sparse matrix} of shape (n_samples, n_features)
+The training input samples. Internally, its dtype will be converted to dtype=np.float32. If a sparse matrix is provided, it will be converted into a sparse csc_matrix.
+
+yarray-like of shape (n_samples,) or (n_samples, n_outputs)
+The target values (class labels in classification, real numbers in regression).
+
+sample_weightarray-like of shape (n_samples,), default=None
+Sample weights. If None, then samples are equally weighted. Splits that would create child nodes with net zero or negative weight are ignored while searching for a split in each node. In the case of classification, splits are also ignored if they would result in any single class carrying a negative weight in either child node.
+
+Returns
+selfobject
+get_params(deep=True)[source]
+Get parameters for this estimator.
+
+Parameters
+deepbool, default=True
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+
+Returns
+paramsmapping of string to any
+Parameter names mapped to their values.
+
+predict(X)[source]
+Predict class for X.
+
+The predicted class of an input sample is a vote by the trees in the forest, weighted by their probability estimates. That is, the predicted class is the one with highest mean probability estimate across the trees.
+
+Parameters
+X{array-like, sparse matrix} of shape (n_samples, n_features)
+The input samples. Internally, its dtype will be converted to dtype=np.float32. If a sparse matrix is provided, it will be converted into a sparse csr_matrix.
+
+Returns
+yndarray of shape (n_samples,) or (n_samples, n_outputs)
+The predicted classes.
+
+predict_log_proba(X)[source]
+Predict class log-probabilities for X.
+
+The predicted class log-probabilities of an input sample is computed as the log of the mean predicted class probabilities of the trees in the forest.
+
+Parameters
+X{array-like, sparse matrix} of shape (n_samples, n_features)
+The input samples. Internally, its dtype will be converted to dtype=np.float32. If a sparse matrix is provided, it will be converted into a sparse csr_matrix.
+
+Returns
+pndarray of shape (n_samples, n_classes), or a list of n_outputs
+such arrays if n_outputs > 1. The class probabilities of the input samples. The order of the classes corresponds to that in the attribute classes_.
+
+predict_proba(X)[source]
+Predict class probabilities for X.
+
+The predicted class probabilities of an input sample are computed as the mean predicted class probabilities of the trees in the forest. The class probability of a single tree is the fraction of samples of the same class in a leaf.
+
+Parameters
+X{array-like, sparse matrix} of shape (n_samples, n_features)
+The input samples. Internally, its dtype will be converted to dtype=np.float32. If a sparse matrix is provided, it will be converted into a sparse csr_matrix.
+
+Returns
+pndarray of shape (n_samples, n_classes), or a list of n_outputs
+such arrays if n_outputs > 1. The class probabilities of the input samples. The order of the classes corresponds to that in the attribute classes_.
+
+score(X, y, sample_weight=None)[source]
+Return the mean accuracy on the given test data and labels.
+
+In multi-label classification, this is the subset accuracy which is a harsh metric since you require for each sample that each label set be correctly predicted.

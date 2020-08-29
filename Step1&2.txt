@@ -117,3 +117,6 @@ df.max() | Returns the highest value in each column
 df.min() | Returns the lowest value in each column
 df.median() | Returns the median of each column
 df.std() | Returns the standard deviation of each column
+
+this is my first Ml projects and third time commit 
+

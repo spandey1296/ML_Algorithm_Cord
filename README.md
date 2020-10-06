@@ -1,6 +1,7 @@
-# ML_solution
-ML Algorithm Sample
+# ML Guide for Begineers
 
+
+<img src="https://home-assistant-china.github.io/images/blog/2016-10-hacktoberfest/hacktoberfest.png">
 
 # HacktoberFest- Get your Free T-shirt Now.
 ## Create your first Pull Request fire(PR).
@@ -29,7 +30,7 @@ Show some love smile
 
 ### A month-long celebration from October 1st - 31st sponsored by Digital Ocean and GitHub to get people involved in Open Source. Create your very first pull request to any public repository on GitHub and contribute to the open source developer community.
 
-# lINK: https://hacktoberfest.digitalocean.com/
+# LINK: https://hacktoberfest.digitalocean.com/
 
 
 
